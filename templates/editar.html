@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar</title>
+</head>
+<body>
+    <h1>Editar Veículos</h1>
+    <form action="{{ url_for('editar', id=veiculo.id) }}" method="POST">
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" name="marca" value="{{ veiculo.marca }}"required><br>
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" name="modelo" value="{{ veiculo.modelo }}"required><br>
+        <label for="ano">Ano:</label>
+        <input type="number" id="ano" name="ano" value="{{ veiculo.ano }}"required><br>
+        <input type="submit" value="Salvar">
+    </form>
+</body>
+</html>

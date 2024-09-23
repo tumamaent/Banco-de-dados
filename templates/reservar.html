@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Reservar Veículo: {{ veiculo.marca }} {{ veiculo.modelo }}</h1>
+<form method="POST">
+    <select name="usuario_id" required>
+        <option value="">Selecione um Usuário:</option>
+        {% for usuario in usuarios %}
+        <option value="{{ usuario.id }}">{{ usuario.nome }}</option>
+        {% endfor %}
+    </select>
+    <input type="date" name="data_reserva" required>
+    <button type="submit">Reservar</button>
+</body>
+</html>
