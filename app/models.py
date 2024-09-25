@@ -1,41 +1,50 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from . import db
 
-db = declarative_base()
 
-class Usuario(db.Model):
-    __tablename__ = 'usuarios'
-    id = Column(Integer, primary_key=True)
-    nome = Column(String, nullable=False)
-    email = Column(String, unique=True, nullable=False)
-    senha = Column(String, nullable=False)
-    reservas = relationship('Reserva', back_populates='usuario')
 
-class Veiculo(db.Model):
-    __tablename__ = 'veiculos'
-    id = Column(Integer, primary_key=True)
-    marca = Column(String, nullable=False)
-    modelo = Column(String, nullable=False)
-    ano = Column(Integer, nullable=False)
-    manutencoes = relationship('Manutencao', back_populates='veiculo')
-    reservas = relationship('Reserva', back_populates='veiculo')
 
-class Reserva(db.Model):
-    __tablename__ = 'reservas'
-    id = Column(Integer, primary_key=True)
-    usuario_id = Column(Integer, ForeignKey('usuarios.id'), nullable=False)
-    veiculo_id = Column(Integer, ForeignKey('veiculos.id'), nullable=False)
-    data_inicio = Column(DateTime, nullable=False)
-    data_fim = Column(DateTime, nullable=False)
-    usuario = relationship('Usuario', back_populates='reservas')
-    veiculo = relationship('Veiculo', back_populates='reservas')
+class User(db.Model):
+    __tablename__ = 'Usuarios'
+    
+    id = db.Column(db.Integer ,primary_key=True)
+    Usuario = db.Column(db.String(80) ,unique=True, nullable=False)
+    Contraseña = db.Column(db.String(100) , nullable=False)
+    CPF = db.Column(db.String(100),unique=True, nullable=False)
+    
+    def __repr__(self):
+        return f'<User {self.Usuario}>'
 
-class Manutencao(db.Model):
-    __tablename__ = 'manutencoes'
-    id = Column(Integer, primary_key=True)
-    veiculo_id = Column(Integer, ForeignKey('veiculos.id'), nullable=False)
-    descricao = Column(String, nullable=False)
-    data = Column(DateTime, nullable=False)
-    veiculo = relationship('Veiculo', back_populates='manutencoes')
+
+
+
+
+class Veicles(db.Model):
+    __tablename__ = 'Veicles'
+    
+    id = db.Column(db.Integer ,primary_key=True)
+    Marca = db.Column(db.String(80) , nullable=False)
+    Modelo = db.Column(db.String(100) , nullable=False)
+    Placa = db.Column(db.String(100), nullable=False)
+    Valor = db.Column(db.Float, nullable=False)
+    Img = db.Column(db.String(100), nullable=False)
+    
+    
+    
+    
+    
+    def __repr__(self):
+        return f'<Veicles {self.Marca}>'
+
+
+
+
+
+
+class reserva(db.Model):
+    __tablename__ = 'reserva'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    inicio = db.Column(db.Date, nullable=False)
+    fin = db.Column(db.Date, nullable=False)
+
 
